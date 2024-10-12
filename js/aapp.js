@@ -18,6 +18,9 @@ const loadCategories = async () => {
 
 // Mahsulotlarni olish
 const loadProducts = async (limit, skip, category = 'all') => {
+    // "Loading..." matnini ko'rsatish
+    document.getElementById('loadingMessage').style.display = 'block';
+
     let url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
     if (category !== 'all') {
         url = `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`;
@@ -25,6 +28,10 @@ const loadProducts = async (limit, skip, category = 'all') => {
 
     const res = await fetch(url);
     const data = await res.json();
+
+    // "Loading..." matnini yashirish
+    document.getElementById('loadingMessage').style.display = 'none';
+
     renderProducts(data.products);
 };
 
